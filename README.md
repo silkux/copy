@@ -1,6 +1,6 @@
 # silkux-copy
 
-Vestigial 5-minute web app for copy/paste and permanent delete.
+Vestigial , scratcxhpad app, throaway,for copy/paste and permanent delete.
 
 🔗 https://silkux-copy.vercel.app
 
