@@ -2,7 +2,7 @@
 
 Vestigial , scratcxhpad app, throaway,for copy/paste and permanent delete.
 
-🔗 https://silkux-copy.vercel.app
+🔗 https://silkux-paste.vercel.app
 
 ## Features
 
