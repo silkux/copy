@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi Paste Web</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 1em;
+      font-family: sans-serif;
+      background: #111;
+      color: #fff;
+    }
+    textarea {
+      width: 100%;
+      height: 90vh;
+      font-family: monospace;
+      font-size: 16px;
+      background: #222;
+      color: #0f0;
+      border: none;
+      padding: 1em;
+      box-sizing: border-box;
+      resize: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>Paste web rápida</h2>
+  <textarea id="pad" placeholder="Escribí o pegá algo..."></textarea>
+  <script>
+    const pad = document.getElementById('pad');
+    pad.value = localStorage.getItem('myPaste') || '';
+    pad.addEventListener('input', () => {
+      localStorage.setItem('myPaste', pad.value);
+    });
+  </script>
+</body>
+</html>
