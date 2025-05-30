@@ -2,18 +2,33 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Paste Global</title>
+  <title>Paste Online</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body { background: #111; color: #fff; padding: 1em; font-family: monospace; }
-    textarea { width: 100%; height: 80vh; background: #222; color: #0f0; font-size: 16px; padding: 1em; box-sizing: border-box; }
+    textarea {
+      width: 100%; height: 70vh;
+      background: #222; color: #0f0;
+      font-size: 16px; padding: 1em; box-sizing: border-box;
+    }
+    button {
+      padding: 0.5em 1em;
+      background: #0f0; color: #111;
+      font-weight: bold; border: none; cursor: pointer;
+      margin-top: 1em;
+    }
   </style>
 </head>
 <body>
-  <h2>Paste Global</h2>
-  <textarea id="pad" placeholder="Cargando..."></textarea>
+  <h2>Paste online</h2>
+  <textarea id="pad" placeholder="Pegá tu texto..."></textarea><br>
+  <button id="saveBtn">Guardar</button>
+  <span id="status"></span>
+
   <script>
     const pad = document.getElementById('pad');
+    const saveBtn = document.getElementById('saveBtn');
+    const status = document.getElementById('status');
 
     async function load() {
       const res = await fetch('/api/paste');
@@ -21,14 +36,18 @@
       pad.value = text;
     }
 
-    pad.addEventListener('input', () => {
-      fetch('/api/paste', {
+    async function save() {
+      status.textContent = "Guardando...";
+      const res = await fetch('/api/paste', {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain' },
         body: pad.value
       });
-    });
+      status.textContent = res.ok ? "Guardado ✓" : "Error al guardar";
+      setTimeout(() => status.textContent = "", 2000);
+    }
 
+    saveBtn.addEventListener('click', save);
     load();
   </script>
 </body>
