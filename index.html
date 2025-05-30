@@ -2,38 +2,46 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Paste Online</title>
+  <title>Paste Rápido</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { background: #111; color: #fff; padding: 1em; font-family: monospace; }
+    body {
+      background: #111; color: #fff;
+      padding: 1em; font-family: monospace;
+    }
     textarea {
-      width: 100%; height: 70vh;
+      width: 100%; height: 65vh;
       background: #222; color: #0f0;
-      font-size: 16px; padding: 1em; box-sizing: border-box;
+      font-size: 16px; padding: 1em;
+      box-sizing: border-box; margin-bottom: 1em;
+      resize: none;
     }
     button {
-      padding: 0.5em 1em;
+      padding: 0.5em 1em; margin-right: 1em;
       background: #0f0; color: #111;
       font-weight: bold; border: none; cursor: pointer;
-      margin-top: 1em;
+    }
+    #status {
+      display: inline-block;
+      font-size: 0.9em;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
-  <h2>Paste online</h2>
+  <h2>Paste Rápido</h2>
   <textarea id="pad" placeholder="Pegá tu texto..."></textarea><br>
-  <button id="saveBtn">Guardar</button>
+  <button onclick="save()">Guardar</button>
+  <button onclick="clearText()">Borrar</button>
   <span id="status"></span>
 
   <script>
     const pad = document.getElementById('pad');
-    const saveBtn = document.getElementById('saveBtn');
     const status = document.getElementById('status');
 
     async function load() {
       const res = await fetch('/api/paste');
-      const text = await res.text();
-      pad.value = text;
+      pad.value = await res.text();
     }
 
     async function save() {
@@ -47,7 +55,11 @@
       setTimeout(() => status.textContent = "", 2000);
     }
 
-    saveBtn.addEventListener('click', save);
+    function clearText() {
+      pad.value = "";
+      save();
+    }
+
     load();
   </script>
 </body>
